@@ -1,0 +1,21 @@
+{
+    "name": "bibliotienda/tienda-online",
+    "description": "creacion de una tienda online",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "fernando moreno hergueta",
+            "email": "fermorher1337@gmail.com"
+        }
+
+    ],
+    "require": {
+        
+    },
+    "autoload": {
+        "psr-4": {
+            "Bibliotienda\\":"src/"
+        }
+    }
+}
