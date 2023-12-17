@@ -18,76 +18,93 @@ class Libro{
     }
 
     public function registrar($_params){
-        $sql="INSERT INTO `libros`(`titulo`, `autor`, `precio`, `categoria_id`, `foto`) VALUES (:titulo, :autor, :precio, :categoria_id, :foto)";
-        $resultado=$this->cn->prepare($sql);
-        $_array=array(
-            ":titulo"=>$_params['titulo'],
-            ":autor"=>$_params['autor'],
-            ":precio"=>$_params['precio'],
-            ":categoria_id"=>$_params['categoria_id'],
-            ":foto"=>$_params['foto'],
+        $sql = "INSERT INTO `libros`(`titulo`, `descripcion`, `foto`, `precio`, `categoria_id`, `fecha`) 
+        VALUES (:titulo,:descripcion,:foto,:precio,:categoria_id,:fecha)";
+
+        $resultado = $this->cn->prepare($sql);
+
+        $_array = array(
+            ":titulo" => $_params['titulo'],
+            ":descripcion" => $_params['descripcion'],
+            ":foto" => $_params['foto'],
+            ":precio" => $_params['precio'],
+            ":categoria_id" => $_params['categoria_id'],
+            ":fecha" => $_params['fecha'],
         );
+
         if($resultado->execute($_array))
-        return true;
-        
+            return true;
+
         return false;
     }
-public function actualizar($_params){
-    $sql="UPDATE `libros` SET `titulo`=:titulo,`autor`=:autor,`precio`=:precio,`categoria_id`=:categoria_id,`foto`=:foto WHERE `id`=:id";
-    $resultado=$this->cn->prepare($sql);
-    $_array=array(
-        ":titulo"=>$_params['titulo'],
-        ":autor"=>$_params['autor'],
-        ":precio"=>$_params['precio'],
-        ":categoria_id"=>$_params['categoria_id'],
-        ":foto"=>$_params['foto'],
-        ":id"=>$_params['id'],
-    );
-    if($resultado->execute($_array))
-    return true;
-    
-    return false;
 
-    }
-    public function mostrar(){
-        $sql="SELECT
-        libros.titulo,
-        libros.autor,
-        libros.precio,
-        libros.categoria_id,
-        categorias.nombre AS Genero
-      FROM
-        libros
-      INNER JOIN
-        categorias
-      ON
-        libros.categoria_id = categorias.id;";
-        $resultado=$this->cn->prepare($sql);
-    
-        if($resultado->execute())
-        return $resultado->fetchAll();
-    return false;  
-    }
-    public function borrar($_id,$_params){
-        $sql="UPDATE `libros` SET `titulo`=:titulo,`autor`=:autor,`precio`=:precio,`categoria_id`=:categoria_id,`foto`=:foto WHERE `id`=:id";
-        $resultado=$this->cn->prepare($sql);
-        $_array= array(
-            ":id"=>$_params['id']
-        )  ; 
+    public function actualizar($_params){
+        $sql = "UPDATE `libros` SET `titulo`=:titulo,`descripcion`=:descripcion,`foto`=:foto,`precio`=:precio,`categoria_id`=:categoria_id,`fecha`=:fecha  WHERE `id`=:id";
+
+        $resultado = $this->cn->prepare($sql);
+
+        $_array = array(
+            ":titulo" => $_params['titulo'],
+            ":descripcion" => $_params['descripcion'],
+            ":foto" => $_params['foto'],
+            ":precio" => $_params['precio'],
+            ":categoria_id" => $_params['categoria_id'],
+            ":fecha" => $_params['fecha'],
+            ":id" =>  $_params['id']
+        );
+
         if($resultado->execute($_array))
-        return true;
-    return false;
+            return true;
+
+        return false;
     }
-    public function filtrarID($_id){
-        $sql= "'SELECT * FROM `libros` WHERE id=':id";
-        $resultado=$this->cn->prepare($sql);
-        $_array= array(
-            ":id"=>$_id['id']
-        )  ; 
+
+    public function eliminar($id){
+        $sql = "DELETE FROM `libros` WHERE `id`=:id ";
+
+        $resultado = $this->cn->prepare($sql);
+        
+        $_array = array(
+            ":id" =>  $id
+        );
+
+        if($resultado->execute($_array))
+            return true;
+
+        return false;
+    }
+
+    public function mostrar(){
+        $sql = "SELECT libros.id, titulo, descripcion,foto,nombre,precio,fecha,estado FROM libros 
+        
+        INNER JOIN categorias
+        ON libros.categoria_id = categorias.id ORDER BY libros.id DESC
+        ";
+        
+        $resultado = $this->cn->prepare($sql);
+
         if($resultado->execute())
-        return $resultado->fetch();
-    return false;  
+            return $resultado->fetchAll();
+
+        return false;
     }
+
+    public function mostrarPorId($id){
+        
+        $sql = "SELECT * FROM `libros` WHERE `id`=:id ";
+        
+        $resultado = $this->cn->prepare($sql);
+        $_array = array(
+            ":id" =>  $id
+        );
+
+        if($resultado->execute($_array))
+            return $resultado->fetch();
+
+        return false;
+    }
+
+
 
 
 

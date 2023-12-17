@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-12-2023 a las 18:47:12
+-- Tiempo de generación: 17-12-2023 a las 17:32:15
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 7.4.29
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `tiendaonline`
+-- Base de datos: `tienda_online`
 --
 
 -- --------------------------------------------------------
@@ -28,16 +28,20 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `categorias` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id` int(10) NOT NULL,
+  `nombre` varchar(50) COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `categorias`
 --
 
 INSERT INTO `categorias` (`id`, `nombre`) VALUES
-(1, 'Sci-fi');
+(1, 'Ficcion'),
+(2, 'No ficcion'),
+(3, 'Infantil'),
+(4, 'Juvenil'),
+(5, 'Comic y manga');
 
 -- --------------------------------------------------------
 
@@ -46,28 +50,50 @@ INSERT INTO `categorias` (`id`, `nombre`) VALUES
 --
 
 CREATE TABLE `clientes` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(250) NOT NULL,
-  `apellidos` varchar(250) NOT NULL,
-  `email` varchar(250) NOT NULL,
-  `telefono` int(11) NOT NULL,
-  `comentario` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id` int(10) NOT NULL,
+  `nombre` varchar(80) COLLATE utf8_spanish_ci NOT NULL,
+  `apellidos` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `email` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `telefono` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
+  `comentario` varchar(300) COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `clientes`
+--
+
+INSERT INTO `clientes` (`id`, `nombre`, `apellidos`, `email`, `telefono`, `comentario`) VALUES
+(1, 'fer', 'nyando', 'sa@gmail.com', '111', 'asa'),
+(2, 'hola', 'hola', 'hola1@gmail.com', '12', 'eso'),
+(3, 'TERA', 'HERGUETA', 'fajsdaiksi@gmail.com', '51010', 'tal y cual'),
+(4, 'asa', 'asa', 'asas@hotmail.com', '1212', 'hola');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `detallepedidos`
+-- Estructura de tabla para la tabla `detalle_pedidos`
 --
 
-CREATE TABLE `detallepedidos` (
+CREATE TABLE `detalle_pedidos` (
   `id` int(11) NOT NULL,
   `pedido_id` int(11) NOT NULL,
-  `libro_id` int(11) NOT NULL,
+  `pelicula_id` int(11) NOT NULL,
+  `precio` decimal(10,2) NOT NULL,
   `cantidad` int(11) NOT NULL,
-  `estado` int(11) NOT NULL,
-  `precio` decimal(10,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `estado` int(11) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `detalle_pedidos`
+--
+
+INSERT INTO `detalle_pedidos` (`id`, `pedido_id`, `pelicula_id`, `precio`, `cantidad`, `estado`) VALUES
+(1, 1, 12, '40.00', 1, 1),
+(2, 2, 11, '17.00', 3, 1),
+(3, 3, 12, '40.00', 1, 1),
+(4, 3, 6, '40.00', 2, 1),
+(5, 4, 14, '12.00', 2, 1),
+(6, 4, 13, '18.00', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -77,19 +103,23 @@ CREATE TABLE `detallepedidos` (
 
 CREATE TABLE `libros` (
   `id` int(11) NOT NULL,
-  `titulo` varchar(250) NOT NULL,
-  `autor` varchar(250) NOT NULL,
+  `titulo` varchar(80) COLLATE utf8_spanish_ci NOT NULL,
+  `descripcion` varchar(300) COLLATE utf8_spanish_ci NOT NULL,
+  `foto` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `precio` decimal(10,2) NOT NULL,
-  `categoria_id` int(11) NOT NULL,
-  `foto` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `categoria_id` int(10) NOT NULL,
+  `fecha` date NOT NULL,
+  `estado` int(11) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `libros`
 --
 
-INSERT INTO `libros` (`id`, `titulo`, `autor`, `precio`, `categoria_id`, `foto`) VALUES
-(1, 'lorem', 'Anonimo', '30.25', 1, 'foto');
+INSERT INTO `libros` (`id`, `titulo`, `descripcion`, `foto`, `precio`, `categoria_id`, `fecha`, `estado`) VALUES
+(13, 'Crimen y Castigo', 'lorem ipsum', 'crimen.jpg', '18.00', 1, '2023-12-17', 1),
+(14, 'Balada de pajaros cantores y serpientes', 'Lorem ipsum y eso', 'balada.jpg', '12.00', 1, '2023-12-17', 1),
+(15, 'Death Note', 'Un libro y esas cosas', 'deathnote.jpg', '11.50', 5, '2023-12-17', 1);
 
 -- --------------------------------------------------------
 
@@ -98,11 +128,22 @@ INSERT INTO `libros` (`id`, `titulo`, `autor`, `precio`, `categoria_id`, `foto`)
 --
 
 CREATE TABLE `pedidos` (
-  `id` int(11) NOT NULL,
+  `id` int(10) NOT NULL,
   `cliente_id` int(11) NOT NULL,
   `total` decimal(10,2) NOT NULL,
-  `fecha` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `fecha` date NOT NULL,
+  `estado` int(11) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `pedidos`
+--
+
+INSERT INTO `pedidos` (`id`, `cliente_id`, `total`, `fecha`, `estado`) VALUES
+(1, 1, '40.00', '2023-12-16', 1),
+(2, 2, '51.00', '2023-12-16', 1),
+(3, 3, '120.00', '2023-12-16', 1),
+(4, 4, '42.00', '2023-12-17', 1);
 
 -- --------------------------------------------------------
 
@@ -112,10 +153,17 @@ CREATE TABLE `pedidos` (
 
 CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL,
-  `nombreUsuario` varchar(250) NOT NULL,
-  `clave` varchar(250) NOT NULL,
-  `estado` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `nombre_usuario` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `clave` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
+  `estado` int(11) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `nombre_usuario`, `clave`, `estado`) VALUES
+(1, 'admin', '1234', 1);
 
 --
 -- Índices para tablas volcadas
@@ -134,9 +182,9 @@ ALTER TABLE `clientes`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `detallepedidos`
+-- Indices de la tabla `detalle_pedidos`
 --
-ALTER TABLE `detallepedidos`
+ALTER TABLE `detalle_pedidos`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -165,37 +213,37 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT de la tabla `detallepedidos`
+-- AUTO_INCREMENT de la tabla `detalle_pedidos`
 --
-ALTER TABLE `detallepedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `detalle_pedidos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `libros`
 --
 ALTER TABLE `libros`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

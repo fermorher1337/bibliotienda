@@ -1,4 +1,8 @@
-
+<?php
+session_start();
+if(!isset($_SESSION['usuario_info']) OR empty($_SESSION['usuario_info']))
+header('Location:index.php')
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -28,40 +32,95 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.php">Bibliotienda</a>
+          <a class="navbar-brand" href="../index.php">Bibliotienda</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav pull-right">
             <li>
-              <a href="pedidos/index.php" class="btn">PEDIDOS <span class="badge">0</span></a>
+              <a href="pedidos/index.php" class="btn">Pedidos</a>
             </li> 
             <li>
-              <a href="libros/index.php" class="btn">LIBROS <span class="badge">0</span></a>
-            </li> 
+              <a href="libros/index.php" class="btn">Libros</a>
+            </li>
             <li class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown">ADMINISTRADOR <b class="caret"></b></a>
-      <ul class="dropdown-menu">
-        <li><a href="#">Salir</a></li>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">admin <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="cerrar_sesion.php">Salir</a></li>
+                </ul>
+            </li>
+          </ul>
 
-      </ul>
-    </li> 
-        </ul>
 
 
-          
+
         </div><!--/.nav-collapse -->
       </div>
     </nav>
 
     <div class="container" id="main">
-      <?php
-        require '../vendor/autoload.php';
-        $libro = new Bibliotienda\Libro;
+    <div class="row">
+          <div class="col-md-12">
+             <fieldset>
+              <legend>10 pedidos más recientes</legend>
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Cliente</th>
+                      <th>N° Pedido</th>
+                      <th>Total</th>
+                      <th>Fecha</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody> 
+                    <?php
+                      require '../vendor/autoload.php';
+                      $pedido = new Bibliotienda\Pedido;
+                      $info_pedido = $pedido->mostrarUltimos();
+
+                    
+                      $cantidad = count($info_pedido);
+                      if($cantidad > 0){
+                        $c=0;
+                      for($x =0; $x < $cantidad; $x++){
+                        $c++;
+                        $item = $info_pedido[$x];
+                    ?>
 
 
+                    <tr>
+                      <td><?php print $c?></td>
+                      <td><?php print $item['nombre'].' '.$item['apellidos']?></td>
+                      <td><?php print $item['id']?></td>
+                      <td><?php print $item['total']?> EUR</td>
+                      <td><?php print $item['fecha']?></td>
+                       
+                      <td class="text-center">
+                        <a href="pedidos/ver.php?id=<?php print $item['id'] ?>" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-eye-open"></span></a>
+                        
+                      </td>
+                    
+                    </tr>
 
-      ?>
-        
+                    <?php
+                      }
+                    }else{
+
+                    ?>
+                    <tr>
+                      <td colspan="6">SIN REGISTROS</td>
+                    </tr>
+
+                    <?php }?>
+                  
+                  
+                  </tbody>
+
+                </table>
+             </fieldset>
+          </div>
+        </div>
 
     </div> <!-- /container -->
 
