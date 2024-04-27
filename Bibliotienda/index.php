@@ -36,6 +36,9 @@ require 'funciones.php';
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav pull-right">
+          <li>
+              <a href="panel" class="btn">LOGIN <span class="badge"></span></a>
+            </li> 
             <li>
               <a href="carrito.php" class="btn">CARRITO <span class="badge"><?php print cantidadLibros(); ?></span></a>
             </li> 
