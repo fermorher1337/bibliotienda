@@ -77,8 +77,8 @@ header('Location:../index.php')
                       <th>Titulo</th>
                       <th>Categoria</th>
                       <th>Precio</th>
-                      <th class="text-center">Foto</th>
-                      <th></th>
+                      <th>Foto</th>
+                      <th>Opciones</th>
                     </tr>
                   </thead>
                   <tbody> 

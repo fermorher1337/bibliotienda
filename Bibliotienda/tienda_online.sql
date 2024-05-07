@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-12-2023 a las 17:32:15
+-- Tiempo de generación: 07-05-2024 a las 20:44:57
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 7.4.29
 
@@ -63,10 +63,10 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`id`, `nombre`, `apellidos`, `email`, `telefono`, `comentario`) VALUES
-(1, 'fer', 'nyando', 'sa@gmail.com', '111', 'asa'),
-(2, 'hola', 'hola', 'hola1@gmail.com', '12', 'eso'),
-(3, 'TERA', 'HERGUETA', 'fajsdaiksi@gmail.com', '51010', 'tal y cual'),
-(4, 'asa', 'asa', 'asas@hotmail.com', '1212', 'hola');
+(5, 'ejemplo', 'tst', '11@hotmail.com', '021112', ''),
+(6, 'a', 'aaa', 'a@g', '12131', ''),
+(7, 'dual', 'dual', 'dua@gma', '1114', ''),
+(8, 'senor', 'anillo', 'fahsfha@gmail.com', '11111', '');
 
 -- --------------------------------------------------------
 
@@ -77,7 +77,7 @@ INSERT INTO `clientes` (`id`, `nombre`, `apellidos`, `email`, `telefono`, `comen
 CREATE TABLE `detalle_pedidos` (
   `id` int(11) NOT NULL,
   `pedido_id` int(11) NOT NULL,
-  `pelicula_id` int(11) NOT NULL,
+  `libro_id` int(11) NOT NULL,
   `precio` decimal(10,2) NOT NULL,
   `cantidad` int(11) NOT NULL,
   `estado` int(11) NOT NULL DEFAULT 1
@@ -87,13 +87,11 @@ CREATE TABLE `detalle_pedidos` (
 -- Volcado de datos para la tabla `detalle_pedidos`
 --
 
-INSERT INTO `detalle_pedidos` (`id`, `pedido_id`, `pelicula_id`, `precio`, `cantidad`, `estado`) VALUES
-(1, 1, 12, '40.00', 1, 1),
-(2, 2, 11, '17.00', 3, 1),
-(3, 3, 12, '40.00', 1, 1),
-(4, 3, 6, '40.00', 2, 1),
-(5, 4, 14, '12.00', 2, 1),
-(6, 4, 13, '18.00', 1, 1);
+INSERT INTO `detalle_pedidos` (`id`, `pedido_id`, `libro_id`, `precio`, `cantidad`, `estado`) VALUES
+(7, 6, 14, '12.00', 1, 1),
+(8, 7, 15, '11.50', 1, 1),
+(9, 7, 13, '18.00', 1, 1),
+(10, 8, 16, '10.00', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -117,9 +115,10 @@ CREATE TABLE `libros` (
 --
 
 INSERT INTO `libros` (`id`, `titulo`, `descripcion`, `foto`, `precio`, `categoria_id`, `fecha`, `estado`) VALUES
-(13, 'Crimen y Castigo', 'lorem ipsum', 'crimen.jpg', '18.00', 1, '2023-12-17', 1),
+(13, 'Crimen y Castigo', 'lorem ipsum', 'crimen.jpg', '18.00', 2, '2024-05-07', 1),
 (14, 'Balada de pajaros cantores y serpientes', 'Lorem ipsum y eso', 'balada.jpg', '12.00', 1, '2023-12-17', 1),
-(15, 'Death Note', 'Un libro y esas cosas', 'deathnote.jpg', '11.50', 5, '2023-12-17', 1);
+(15, 'Death Note', 'Un libro y esas cosas', 'deathnote.jpg', '11.50', 5, '2023-12-17', 1),
+(16, 'El  Senor de los Anillos', 'ipsum', 'senoranillos.jpg', '10.00', 1, '2024-05-07', 1);
 
 -- --------------------------------------------------------
 
@@ -140,10 +139,9 @@ CREATE TABLE `pedidos` (
 --
 
 INSERT INTO `pedidos` (`id`, `cliente_id`, `total`, `fecha`, `estado`) VALUES
-(1, 1, '40.00', '2023-12-16', 1),
-(2, 2, '51.00', '2023-12-16', 1),
-(3, 3, '120.00', '2023-12-16', 1),
-(4, 4, '42.00', '2023-12-17', 1);
+(6, 6, '12.00', '2024-05-06', 1),
+(7, 7, '29.50', '2024-05-06', 1),
+(8, 8, '10.00', '2024-05-07', 1);
 
 -- --------------------------------------------------------
 
@@ -219,25 +217,25 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_pedidos`
 --
 ALTER TABLE `detalle_pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `libros`
 --
 ALTER TABLE `libros`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`

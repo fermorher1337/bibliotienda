@@ -63,9 +63,9 @@ class Pedido{
         $resultado = $this->cn->prepare($sql);
 
         if($resultado->execute())
-            return  $resultado->fetchAll();
+        return  $resultado->fetchAll();
 
-        return false;
+    return false;
 
     }
     public function mostrarUltimos()
@@ -84,8 +84,12 @@ class Pedido{
 
     public function mostrarPorId($id)
     {
-        $sql = "SELECT p.id, nombre, apellidos, email, total, fecha FROM pedidos p 
-        INNER JOIN clientes c ON p.cliente_id = c.id WHERE p.id = :id";
+        $sql = "SELECT l.foto, c.nombre, c.apellidos, c.email, l.titulo, l.precio, d.cantidad, d.precio * d.cantidad AS precio_total_item, p.fecha AS fecha_pedido
+        FROM pedidos p
+        INNER JOIN clientes c ON p.cliente_id = c.id
+        INNER JOIN detalle_pedidos d ON p.id = d.pedido_id
+        INNER JOIN libros l ON d.libro_id = l.id
+        WHERE p.id = :id";
 
         $resultado = $this->cn->prepare($sql);
 
@@ -103,15 +107,12 @@ class Pedido{
 
     public function mostrarDetallePorIdPedido($id)
     {
-        $sql = "SELECT 
-                dp.id,
-                pe.titulo,
-                dp.precio,
-                dp.cantidad,
-                pe.foto
-                FROM detalle_pedidos dp
-                INNER JOIN libros le ON le.id= dp.libro_id
-                WHERE dp.pedido_id = :id";
+        $sql = "SELECT l.foto, c.nombre, c.apellidos, c.email, l.titulo, l.precio, d.cantidad, d.precio * d.cantidad AS precio_total_item, p.fecha AS fecha_pedido
+        FROM pedidos p
+        INNER JOIN clientes c ON p.cliente_id = c.id
+        INNER JOIN detalle_pedidos d ON p.id = d.pedido_id
+        INNER JOIN libros l ON d.libro_id = l.id
+        WHERE p.id = :id";
 
         $resultado = $this->cn->prepare($sql);
 

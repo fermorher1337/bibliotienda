@@ -13,7 +13,7 @@ header('Location:index.php')
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Kawschool Store</title>
+    <title>Bibliotienda</title>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">

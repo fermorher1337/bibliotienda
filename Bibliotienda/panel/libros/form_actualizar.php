@@ -111,7 +111,7 @@ header('Location:index.php')
                             <option value="">--SELECCIONE--</option>
                             <?php
                              require '../../vendor/autoload.php';
-                              $categoria = new Kawschool\Categoria;
+                              $categoria = new Bibliotienda\Categoria;
                               $info_categoria = $categoria->mostrar();
                               $cantidad = count($info_categoria);
                                 for($x =0; $x< $cantidad;$x++){

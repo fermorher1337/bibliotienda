@@ -75,10 +75,11 @@ class Libro{
     }
 
     public function mostrar(){
-        $sql = "SELECT libros.id, titulo, descripcion,foto,nombre,precio,fecha,estado FROM libros 
-        
+        $sql = "SELECT libros.id, titulo, descripcion, foto, precio, fecha, estado, categorias.nombre
+        FROM libros 
         INNER JOIN categorias
-        ON libros.categoria_id = categorias.id ORDER BY libros.id DESC
+        ON libros.categoria_id = categorias.id
+        ORDER BY libros.id DESC;
         ";
         
         $resultado = $this->cn->prepare($sql);
