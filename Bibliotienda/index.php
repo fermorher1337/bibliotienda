@@ -2,6 +2,7 @@
 <?php
 session_start();
 require 'funciones.php';
+require 'vendor/autoload.php';
 
 
 ?>
@@ -55,10 +56,9 @@ require 'funciones.php';
     <div class="row">
 
   
-     <?php
-     require 'vendor/autoload.php';
+    <?php
      $libro = new Bibliotienda\Libro;
-     $info_libros = $libro->mostrar();
+    
      $cantidad = count($info_libros);
      if($cantidad > 0){
        for($x =0; $x < $cantidad; $x++){
