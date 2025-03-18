@@ -57,8 +57,24 @@ require 'vendor/autoload.php';
 
   
     <?php
+
+function fetchBooks() {
+
+  // Replace with your actual database connection details
+
+  $db = new PDO('mysql:host=localhost;dbname=tienda_online;charset=utf8', 'root', '');
+
+  $stmt = $db->query("SELECT * FROM libros"); // Adjust the table name as needed
+
+  return $stmt->fetchAll(PDO::FETCH_ASSOC); // Fetch all records as an associative array
+
+}
+
+
+
+
      $libro = new Bibliotienda\Libro;
-    
+     $info_libros = fetchBooks();;
      $cantidad = count($info_libros);
      if($cantidad > 0){
        for($x =0; $x < $cantidad; $x++){

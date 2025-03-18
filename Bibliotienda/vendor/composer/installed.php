@@ -3,7 +3,7 @@
         'name' => 'bibliotienda/tienda-online',
         'pretty_version' => '1.0.0+no-version-set',
         'version' => '1.0.0.0',
-        'reference' => NULL,
+        'reference' => null,
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'bibliotienda/tienda-online' => array(
             'pretty_version' => '1.0.0+no-version-set',
             'version' => '1.0.0.0',
-            'reference' => NULL,
+            'reference' => null,
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
