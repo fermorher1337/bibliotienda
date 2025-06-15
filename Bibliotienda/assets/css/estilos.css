@@ -1,38 +1,96 @@
-.panel-title{
-	font-size: 14px;
-	text-align: center;
-	font-weight: bold;
-}
-#main{
-        margin-top: 100px;
+.panel-title {
+    font-size: 14px;
+    text-align: center;
+    font-weight: bold;
 }
 
-.u-size-100{
-	width: 100px;
-	text-align: center;
+#main {
+    margin-top: 100px;
 }
 
-.main-form{
-	max-width: 500px;
-	margin: 0 auto;
+.u-size-100 {
+    width: 100px;
+    text-align: center;
 }
 
-.panel-info>.panel-heading{
-	color: #ffffff;
+.main-form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.panel-info > .panel-heading {
+    color: #ffffff;
     background-color: #e95420;
 }
-.main-login{
-	max-width: 300px;
-	margin: 0 auto;
+
+.main-login {
+    max-width: 300px;
+    margin: 0 auto;
 }
 
-.footer{
-	margin-top: 100px;
-  
+.footer {
+    margin-top: 100px;
 }
 
-.titulo-pelicula{
-	font-size: 15px;
-	margin: 0;
-	font-weight: bold;
+.titulo-pelicula {
+    font-size: 15px;
+    margin: 0;
+    font-weight: bold;
 }
+
+
+
+body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    background-color: #343a40;
+}
+
+.navbar-brand,
+.navbar-nav li a {
+    color: #ffffff !important;
+}
+
+.navbar-nav li a:hover {
+    background-color: #495057;
+}
+
+.titulo-libro {
+    font-size: 1.5em;
+    color: #007bff;
+}
+
+.panel.panel-default {
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    transition: transform 0.2s;
+}
+
+.panel.panel-default:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.panel-body {
+    text-align: center;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+.panel-body img {
+    max-height: 200px;
+    object-fit: cover;
+    width: 100%;
+}
+

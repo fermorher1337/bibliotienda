@@ -84,8 +84,9 @@ class Libro{
         
         $resultado = $this->cn->prepare($sql);
 
+        
         if($resultado->execute())
-            return $resultado->fetchAll();
+            return $resultado->fetchAll() ;
 
         return false;
     }
